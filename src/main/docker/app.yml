@@ -1,0 +1,16 @@
+version: '2'
+services:
+  todo_list-app:
+    image: todo_list
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://todo_list-postgresql:5432/todo_list
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    ports:
+      - 8080:8080
+  todo_list-postgresql:
+    extends:
+      file: postgresql.yml
+      service: todo_list-postgresql
